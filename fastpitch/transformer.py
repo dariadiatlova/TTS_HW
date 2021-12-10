@@ -204,6 +204,7 @@ class FFTransformer(nn.Module):
             mask = (dec_inp != self.padding_idx).unsqueeze(2)
 
         if prom_inp is not None:
+            print("DEBUG")
             prom_emb = self.prom_emb(prom_inp)
 
         pos_seq = torch.arange(inp.size(1), device=inp.device).to(inp.dtype)
