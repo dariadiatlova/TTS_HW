@@ -255,7 +255,7 @@ class FastPitch(nn.Module):
             spk_emb.mul_(self.speaker_emb_weight)
 
         # Input FFT
-        enc_out, enc_mask = self.encoder(inputs, proms, conditioning=spk_emb)
+        enc_out, enc_mask = self.encoder(inputs, prom_inp=proms, conditioning=spk_emb)
 
         # Alignment
         text_emb = self.encoder.word_emb(inputs)
@@ -332,7 +332,7 @@ class FastPitch(nn.Module):
             spk_emb.mul_(self.speaker_emb_weight)
 
         # Input FFT
-        enc_out, enc_mask = self.encoder(inputs, conditioning=spk_emb)
+        enc_out, enc_mask = self.encoder(inputs, prom_inp=proms, conditioning=spk_emb)
 
         # Predict durations
         log_dur_pred = self.duration_predictor(enc_out, enc_mask).squeeze(-1)
