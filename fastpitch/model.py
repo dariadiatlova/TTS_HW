@@ -255,10 +255,11 @@ class FastPitch(nn.Module):
             spk_emb.mul_(self.speaker_emb_weight)
 
         # Input FFT
-        enc_out, enc_mask = self.encoder(inputs, conditioning=spk_emb)
+        enc_out, enc_mask = self.encoder(inputs, proms, conditioning=spk_emb)
 
         # Alignment
         text_emb = self.encoder.word_emb(inputs)
+        prom_emb = self.encoder.prom_emb(proms)
 
         # make sure to do the alignments before folding
         attn_mask = mask_from_lens(input_lens)[..., None] == 0
